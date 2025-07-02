@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AllInOneGames</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    .game { display: none; margin-top: 20px; }
+    button { margin: 5px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+  <h1>🎮 My Simple Game Hub</h1>
+  <p>Select a game:</p>
+
+  <button onclick="showGame('guess')">Guess the Number</button>
+  <button onclick="showGame('rps')">Rock Paper Scissors</button>
+
+  <!-- Guess the Number Game -->
+  <div id="guess" class="game">
+    <h2>🔢 Guess the Number</h2>
+    <p>I'm thinking of a number between 1 and 10.</p>
+    <input id="guessInput" type="number" />
+    <button onclick="checkGuess()">Guess</button>
+    <p id="guessResult"></p>
+  </div>
+
+  <!-- Rock Paper Scissors Game -->
+  <div id="rps" class="game">
+    <h2>✊ Rock Paper Scissors</h2>
+    <button onclick="playRPS('rock')">Rock</button>
+    <button onclick="playRPS('paper')">Paper</button>
+    <button onclick="playRPS('scissors')">Scissors</button>
+    <p id="rpsResult"></p>
+  </div>
+
+  <script>
+    // Show the chosen game
+    function showGame(gameId) {
+      document.querySelectorAll('.game').forEach(div => div.style.display = 'none');
+      document.getElementById(gameId).style.display = 'block';
+    }
+
+    // Game 1: Guess the Number
+    let secretNumber = Math.floor(Math.random() * 10) + 1;
+    function checkGuess() {
+      const guess = parseInt(document.getElementById("guessInput").value);
+      const result = document.getElementById("guessResult");
+      if (guess === secretNumber) {
+        result.textContent = "🎉 You guessed it!";
+      } else {
+        result.textContent = "❌ Try again!";
+      }
+    }
+
+    // Game 2: Rock Paper Scissors
+    function playRPS(playerChoice) {
+      const choices = ["rock", "paper", "scissors"];
+      const computer = choices[Math.floor(Math.random() * 3)];
+      let result = "";
+
+      if (playerChoice === computer) {
+        result = "It's a tie!";
+      } else if (
+        (playerChoice === "rock" && computer === "scissors") ||
+        (playerChoice === "paper" && computer === "rock") ||
+        (playerChoice === "scissors" && computer === "paper")
+      ) {
+        result = "🎉 You win!";
+      } else {
+        result = "💻 Computer wins!";
+      }
+
+      document.getElementById("rpsResult").textContent = `You chose ${playerChoice}, computer chose ${computer}. ${result}`;
+    }
+  </script>
+
+</body>
+</html>
